@@ -2,7 +2,7 @@
 
 tardis-usertools 2.0
 
-This is intended to be a python package to replace tardis-usertools
+This is intended to be a python package to extend the existing tardis-usertools package written by Kevin Campbell <kev@tardis.ed.ac.uk>
 
 ## Usage
 Intended usage for now, to be finalised when written
