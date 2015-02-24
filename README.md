@@ -28,3 +28,5 @@ newcommand_p = subparsers.add_parser('newcommand', description='Enter a short de
 newcommand_p.add_argument('positional_argument')
 ```
 This would add a new command, to be called with ```tardis newcommand```, requiring one argument (which would be specified in the help text as ```positional_argument```)
+
+Docs for argparse can be found here: https://docs.python.org/2.7/library/argparse.html
