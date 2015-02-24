@@ -21,30 +21,38 @@ For all users
 
 ## Extending
 The main "routing" file can be found in ```tardis/script.py```. This contains the master ArgumentParser for the ```tardis``` command.
-
-Adding a new command can be done like so:
-```python
-newcommand_p = subparsers.add_parser('newcommand', description='Enter a short description of your new command', help='Enter another short description of your new command')
-newcommand_p.add_argument('positional_argument')
-```
-This would add a new command, to be called with ```tardis newcommand```, requiring one argument (which would be specified in the help text as ```positional_argument```)
-
-At minimum the argument name and help are required (Pull requests without providing help text will be rejected). Help text shows in the subcommand list as such:
-```
-usage: tardis [-h] {adduser,deluser} ...
-
-optional arguments:
-  -h, --help         show this help message and exit
-
-Subcommands:
-  TARDIS Project Toolkit
-
-  {adduser,deluser}
-    adduser          Create a new user on TARDIS
-    deluser          Delete a user from TARDIS
-```
- - The string "Create a new user on TARDIS" is the help text for the adduser_p subparser
- - The string "TARDIS Project Toolkit" is the description text for the main parser
- 
-Each subparser gets its own help page too, so ```tardis adduser -h``` would produce specific help for the adduser command.
 Docs for argparse can be found here: https://docs.python.org/2.7/library/argparse.html
+
+To add your own command, you should create a module, or package, in the ```tardis.commands``` package.
+This module should have at minimum two functions - one for setup, one for the command.
+
+Setup should take a single argument, and will be passed the argument parser to allow for argument instantiation.
+It should look somewhat like below:
+```python
+def setup(parser):
+    parser.add_argument("username", help="Username for the new user")
+```
+
+The command function takes one argument, which is the resultant [Namespace](https://docs.python.org/2.7/library/argparse.html#the-namespace-object) object containing the relevant parsed arguments.
+
+Carrying on from the above example, you would use it as such:
+```python
+def command(args):
+    print(args.username)
+```
+
+Finally, add the command to ```script.py```.
+
+```python
+# Command: adduser
+# Author: Harry Reeder <skull@tardis.ed.ac.uk>
+adduser_p = subparsers.add_parser('adduser', description="Create a new user on TARDIS", help="Create a new user on TARDIS")
+adduser_setup(adduser_p)
+adduser_p.set_defaults(func=adduser_func)
+```
+
+A couple of style notes for script.py
+ - Import both the setup and command in one line, aliased as ```&lt;command&gt;_setup``` and ```&lt;command&gt;_func```, where &lt;command&gt; is your command.
+ - Keep imports alphabetical
+ - When creating the subparser, you MUST expose a help text, and preferably a description.
+ - All subparser arguments should be defined in your setup function, keep them out of script.py for readability.
