@@ -53,6 +53,6 @@ adduser_p.set_defaults(func=adduser_func)
 
 A couple of style notes for script.py
  - Import both the setup and command in one line, aliased as ```<command>_setup``` and ```<command>_func```, where &lt;command&gt; is your command.
- - Keep imports alphabetical
+ - Keep (tardis.commands.*) imports alphabetical
  - When creating the subparser, you MUST expose a help text, and preferably a description.
  - All subparser arguments should be defined in your setup function, keep them out of script.py for readability.
