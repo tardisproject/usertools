@@ -14,7 +14,7 @@ setup(
     packages=['tardis'],
     entry_points={
         'console_scripts': [
-            'tardis = tardis.script:main',
+            'tardis = tardis.interactive:main',
         ]
     }
 )
