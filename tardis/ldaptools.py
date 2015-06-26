@@ -7,7 +7,7 @@ import base64
 def ssha1(password, salt):
     """
     This is the hash function used by OpenLDAP+pam_ldap.
-    It expects a password of any length, and a four (4) byte salt)
+    It expects a password of any length, and a four (4) byte salt
     """
     phash = hashlib.sha1()
     phash.update(password)

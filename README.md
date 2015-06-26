@@ -11,16 +11,10 @@ For sysmans (root only)
 
 ```tardis adduser <username>```
 
-```tardis deluser <username>```
-
-For all users
-
-```tardis create sip```
-
-```tardis create xmpp```
+```tardis showuser <username>```
 
 ## Extending
-The main "routing" file can be found in ```tardis/script.py```. This contains the master ArgumentParser for the ```tardis``` command.
+The main "routing" file can be found in ```tardis/interactive.py```. This contains the master ArgumentParser for the ```tardis``` command.
 Docs for argparse can be found here: https://docs.python.org/2.7/library/argparse.html
 
 To add your own command, you should create a module, or package, in the ```tardis.commands``` package.
@@ -41,7 +35,7 @@ def command(args):
     print(args.username)
 ```
 
-Finally, add the command to ```script.py```.
+Finally, add the command to ```interactive.py```.
 
 ```python
 # Command: adduser
@@ -51,8 +45,8 @@ adduser_setup(adduser_p)
 adduser_p.set_defaults(func=adduser_func)
 ```
 
-A couple of style notes for script.py
+A couple of style notes for interactive.py
  - Import both the setup and command in one line, aliased as ```<command>_setup``` and ```<command>_func```, where &lt;command&gt; is your command.
- - Keep (tardis.commands.*) imports alphabetical
+ - Group your command imports inside interactive.py - adduser, updateuser, and deluser should be together, as should add/update/del group for example. 
  - When creating the subparser, you MUST expose a help text, and preferably a description.
- - All subparser arguments should be defined in your setup function, keep them out of script.py for readability.
+ - All subparser arguments should be defined in your setup function, keep them out of interactive.py for readability.

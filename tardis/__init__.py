@@ -5,4 +5,4 @@ __authoremail__ = 'skull@tardis.ed.ac.uk'
 __license__ = 'MIT'
 __copyright__ = 'Copyright 2015'
 
-__all__ = []
+__all__ = ["ldaptools"]
