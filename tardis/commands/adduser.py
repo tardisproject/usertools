@@ -53,7 +53,7 @@ def command(args):
         "loginShell": ["/bin/bash"],
         "quota": ["10000000S"],
         "gidNumber": ["1005"],      # "Student" group
-        "userPassword": tardis.ldaptools.ssha1(password, salt)
+        "userPassword": [tardis.ldaptools.ssha1(password, salt)]
     }
 
     # Pairs of ldapname, friendlyname we still need to get
@@ -66,7 +66,7 @@ def command(args):
     ]
 
     for field in fields:
-        newuser[field[0]] = raw_input(field[1])
+        newuser[field[0]] = [raw_input(field[1])]
 
     # Extra elements inferred from what we have
     newuser["cn"] = newuser["gecos"]    # Apparently(!)
