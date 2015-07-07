@@ -97,7 +97,11 @@ def command(args):
         ldap.addMap(args.username, newmap)
 
         logging.debug("Adding directories")
-        os.system("mkdir /var/autofs/newusers/%s" % args.username)
+        # Homedir and symlink
+        os.system("mkdir /var/autofs/users/%s" % args.username)
+        os.system("ln -s /var/autofs/users/%s /var/autofs/newusers/%s" %(args.username, args.username))
+
+        # Mail
         os.system("maildirmake /var/autofs/mail/%s" % args.username)
         os.system("ln -s /var/autofs/mail/%s /var/autofs/newusers/%s/Maildir" %(args.username, args.username))
         os.system("chown -R %i:1005 /var/autofs/newusers/%s" % (lowestuid, args.username))
