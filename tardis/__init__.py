@@ -1,7 +1,7 @@
 __title__ = 'tardis-scriptkit'
 __version__ = '2.0'
-__author__ = 'Harry Reeder'
-__authoremail__ = 'skull@tardis.ed.ac.uk'
+__author__ = 'Tardis Sysmans'
+__authoremail__ = 'sysmans@tardis.ed.ac.uk'
 __license__ = 'MIT'
 __copyright__ = 'Copyright 2015'
 
