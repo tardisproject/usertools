@@ -102,7 +102,9 @@ def command(args):
         os.system("ln -s /var/autofs/users/%s /var/autofs/newusers/%s" %(args.username, args.username))
 
         # Mail
-        os.system("maildirmake /var/autofs/mail/%s" % args.username)
+        os.mkdir("/var/autofs/mail/%s" % args.username, 0700)
+        os.chown("/var/autofs/mail/%s" % args.username, lowestuid, 1005)    # Sets group to "students" but we 700 anyway
+
         os.system("ln -s /var/autofs/mail/%s /var/autofs/newusers/%s/Maildir" %(args.username, args.username))
         os.system("chown -R %i:1005 /var/autofs/newusers/%s" % (lowestuid, args.username))
         os.system("chown -R %i:1005 /var/autofs/mail/%s" % (lowestuid, args.username))
