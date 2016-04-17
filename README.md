@@ -50,3 +50,19 @@ A couple of style notes for interactive.py
  - Group your command imports inside interactive.py - adduser, updateuser, and deluser should be together, as should add/update/del group for example. 
  - When creating the subparser, you MUST expose a help text, and preferably a description.
  - All subparser arguments should be defined in your setup function, keep them out of interactive.py for readability.
+
+## Developing, Testing, and Installing
+To develop, check out a copy, and then
+```
+$ virtualenv env            # Create a working environment
+$ source env/bin/activate   # Activate it, allowing you to install and test without being root
+$ pip install -e .          # Install in editable mode
+```
+
+You'll also need to make sure that you have an LDAP config file that you can read to pass to tardis.ldaptools.LDAP().
+
+To deploy, check out a copy and then
+```
+$ su root
+# python setup.py install
+```
