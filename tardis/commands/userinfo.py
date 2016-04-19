@@ -35,7 +35,7 @@ def command(args):
             print "Username:", user[-1].get("uid", [None])[0]
             print "UserID:", user[-1].get("uidNumber", [None])[0]
             print "GroupID:", user[-1].get("gidNumber", [None])[0]
-            print "Secondary Groups:", ", ".join("%s (%d)" % (group["cn"],group["gidNumber"]) for group in groups)
+            print "Secondary Groups:", ", ".join("%s (%s)" % (group[1]["cn"],group[1]["gidNumber"]) for group in groups)
             print "Realname:", user[-1].get("cn", [None])[0]
             print "External Email:", user[-1].get("externalEmail", [None])[0]
             print "Sponsor:", user[-1].get("sponsors", [None])[0]
