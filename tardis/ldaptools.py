@@ -64,6 +64,10 @@ class LDAP(object):
         self.conn.delete('uid=%s, ou=People, %s' %(username, self.base))
 
     # Group management
+    def getGroupsForUser(self, username):
+        results = self.conn.search_s("ou=Group, %s" %self.base, ldap.SCOPE_SUBTREE, filterstr="memberUid=%s" % username)
+        return results
+
     def getGroup(self, groupname):
         results = self.conn.search_s("ou=Group, %s" %self.base, ldap.SCOPE_SUBTREE, filterstr="cn=%s" % groupname)
         return results[0]
