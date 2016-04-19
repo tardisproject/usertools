@@ -22,22 +22,21 @@ def command(args):
     if args.username:
         users = ldap.searchUser("uid", args.username)
     elif args.realname:
-        print "Realname searches are not currently implemented"
-        exit(-1)
+        users = ldap.searchUser("cn", "*"+args.realname+"*")
     elif args.uid:
-        print "UID searches are not currently implemented"
-        exit(-1)
+        users = ldap.searchUser("uidNumber", args.uid)
     else:
         assert False, "ArgParse promises at least one argument but none were non-None?"
 
     logging.debug("Found %d users" % len(users))
     if users:
         for user in users:
-            print "Username:", user[-1]["uid"][0]
-            print "UserID:", user[-1]["uidNumber"][0]
-            print "Realname:", user[-1]["cn"][0]
-            print "External Email:", user[-1]["externalEmail"][0]
-            print "Sponsor:", user[-1]["sponsors"][0]
+            print "Username:", user[-1].get("uid", [None])[0]
+            print "UserID:", user[-1].get("uidNumber", [None])[0]
+            print "Realname:", user[-1].get("cn", [None])[0]
+            print "External Email:", user[-1].get("externalEmail", [None])[0]
+            print "Sponsor:", user[-1].get("sponsors", [None])[0]
+            print ""
         exit(0)
     else:
         print "No users found"
