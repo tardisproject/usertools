@@ -6,11 +6,11 @@ except ImportError:
     from distutils.core import setup, find_packages
 
 setup(
-    name='tardis-scriptkit',
+    name='tardis-usertools',
     version=tardis.__version__,
     author=tardis.__author__,
     author_email=tardis.__authoremail__,
-    description='Scriptkit for Tardis',
+    description='usertools for Tardis',
     packages=find_packages(),
     entry_points={
         'console_scripts': [
