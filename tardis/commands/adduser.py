@@ -103,6 +103,12 @@ def command(args):
         os.chown("/var/autofs/users/%s" % args.username, lowestuid, 1005)
         os.symlink("/var/autofs/users/%s" % args.username, "/var/autofs/newusers/%s" % args.username)
 
+        # Webdir and symlink
+        os.mkdir("/var/autofs/www/%s" % args.username, 0755)
+        os.mkdir("/var/autofs/www/%s/pages" % args.username, 0755)
+        os.chown("/var/autofs/www/%s/pages" % args.username, lowestuid, 33)  # <user>:www-data
+        os.symlink("/var/autofs/www/%s/pages" % args.username, "/var/autofs/newusers/%s/public_html" % args.username)
+        
         # Mail
         os.mkdir("/var/autofs/mail/%s" % args.username, 0700)
         os.chown("/var/autofs/mail/%s" % args.username, lowestuid, 1005)    # Sets group to "students" but we 700 anyway
