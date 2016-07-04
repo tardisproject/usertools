@@ -99,7 +99,7 @@ def command(args):
         logging.debug("Adding directories")
 
         # Homedir and symlink
-        os.mkdir("/var/autofs/users/%s" % args.username, 755)
+        os.mkdir("/var/autofs/users/%s" % args.username, 0755)
         os.chown("/var/autofs/users/%s" % args.username, lowestuid, 1005)
         os.symlink("/var/autofs/users/%s" % args.username, "/var/autofs/newusers/%s" % args.username)
 
