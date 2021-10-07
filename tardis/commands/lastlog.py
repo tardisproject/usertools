@@ -10,10 +10,9 @@ import re
 
 
 def setup(parser):
-    parser.add_argument("-type", -"t" help="Audit user logins -- abandon for abandonment -- password for password type.")
+    parser.add_argument("--type", -"t" help="Audit user logins -- abandon for abandonment -- password for password type.")
 
 def command(args):
-    ldap = tardis.ldaptools.LDAP("/etc/tardis/ldap.conf")
     ldap.connect()
     userlist = ldap.getUsers()
     print "Found %d users in LDAP currently." %len(userlist)
