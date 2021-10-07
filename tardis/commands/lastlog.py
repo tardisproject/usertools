@@ -10,7 +10,7 @@ import re
 
 
 def setup(parser):
-    parser.add_argument("--type", -"t", help="Audit user logins -- abandon for abandonment -- password for password type.")
+    parser.add_argument("--type", "-t", help="Audit user logins -- abandon for abandonment -- password for password type.")
 
 def command(args):
     ldap.connect()
@@ -51,6 +51,5 @@ def command(args):
             print "%s: %d" %(k, len(v))
         exit(0)
 
-    if args.type != "abandon" or args.type != "password" or args.type != None: 
-        assert False, "Argument '-t' requires either 'abandon' or 'password'."
-        exit(100)
+    assert False, "Argument '-t' requires either 'abandon' or 'password'."
+    exit(100)
