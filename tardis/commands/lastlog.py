@@ -51,6 +51,6 @@ def command(args):
             print "%s: %d" %(k, len(v))
         exit(0)
 
-    if args.type !== "abandon" or args.type !== "password" or args.type !== None: 
+    if args.type != "abandon" or args.type != "password" or args.type != None: 
         assert False, "Argument '-t' requires either 'abandon' or 'password'."
         exit(100)
