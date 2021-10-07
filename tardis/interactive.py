@@ -2,6 +2,7 @@ import argparse
 
 from tardis.commands.adduser import setup as adduser_setup, command as adduser_func
 from tardis.commands.userinfo import setup as userinfo_setup, command as userinfo_func
+from tardis.commands.lastlog import setup as lastlog_setup, command as lastlog_func
 
 def main():
     parser = argparse.ArgumentParser()
@@ -19,6 +20,11 @@ def main():
     userinfo_setup(userinfo_p)
     userinfo_p.set_defaults(func=userinfo_func)
 
+    # Command: userinfo
+    # Maintainer: Maya Copeland <maya@tardis.ed.ac.uk>
+    lastlog_p = subparsers.add_parser('lastlog', description="Read through TARDIS logs", help="Search through tardis logs via their login security or their last login")
+    lastlog_setup(lastlog_p)
+    lastlog_p.set_defaults(func=lastlog_func)
 
     args = parser.parse_args()
     args.func(args)
