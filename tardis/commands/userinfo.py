@@ -1,12 +1,11 @@
+from tardis.consts.errors import ERR_USER_NOT_FOUND
 import tardis.ldaptools
 import logging
 import re
 from subprocess import Popen, PIPE
 
 # userinfo - get a users info
-# exit codes:
-#   0   - Normal
-#   100 - No user found
+
 
 def setup(parser):
     group = parser.add_mutually_exclusive_group(required=True)
@@ -56,5 +55,5 @@ def command(args):
         exit(0)
     else:
         print "No users found"
-        exit(100)
+        exit(ERR_USER_NOT_FOUND)
 

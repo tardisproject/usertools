@@ -1,12 +1,11 @@
+from tardis.consts.errors import ERR_AUDIT_FAILED
 import tardis.ldaptools
 from collections import defaultdict
 from subprocess import Popen, PIPE
 import re
 
 # lastlog - audit users
-# exit codes:
-#   0   - Normal
-#   100 - audit failed somehow
+
 
 
 def setup(parser):
@@ -53,4 +52,4 @@ def command(args):
         exit(0)
 
     assert False, "Argument '-t' requires either 'abandon' or 'password'."
-    exit(100)
+    exit(ERR_AUDIT_FAILED)

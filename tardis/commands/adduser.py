@@ -1,3 +1,4 @@
+from tardis.consts.errors import ERR_USERNAME_UNAVAILABLE
 import tardis.ldaptools
 import logging
 import smtplib
@@ -7,9 +8,6 @@ import pprint
 import os
 
 # adduser - add a user to tardis ldap
-# exit codes:
-#   0   - Normal
-#   100 - Username in use
 
 def setup(parser):
     parser.add_argument("username", help="Username for the new user")
@@ -26,7 +24,7 @@ def command(args):
     if args.username in [user[-1]["uid"][0] for user in userlist]:
         logging.debug("... it's not!")
         print "Username %s is already in use." % args.username
-        exit(100)
+        exit(ERR_USERNAME_UNAVAILABLE)
 
     # Get lowest available UID
     logging.debug("Getting lowest available UID")
