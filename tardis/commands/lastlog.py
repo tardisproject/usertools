@@ -1,4 +1,4 @@
-from tardis.consts.errors import ERR_AUDIT_FAILED
+from tardis.consts import exit_code
 import tardis.ldaptools
 from collections import defaultdict
 from subprocess import Popen, PIPE
@@ -33,7 +33,7 @@ def command(args):
         for k, v in logonHistory.iteritems():
             print "%s: %d" %(k, len(v))
         if args.type == "abandon":
-            exit(0)
+            exit(exit_code.SUCCESS)
 
     if args.type == "password" or not args.type:
         print "##### Password type audit #####"
@@ -49,7 +49,7 @@ def command(args):
 
         for k, v in passwordTypes.iteritems():
             print "%s: %d" %(k, len(v))
-        exit(0)
+        exit(exit_code.SUCCESS)
 
     assert False, "Argument '-t' requires either 'abandon' or 'password'."
-    exit(ERR_AUDIT_FAILED)
+    exit(exit_code.ERR_INVALID_ARGS)

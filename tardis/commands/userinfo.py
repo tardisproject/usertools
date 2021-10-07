@@ -1,4 +1,4 @@
-from tardis.consts.errors import ERR_USER_NOT_FOUND
+from tardis.consts import exit_code
 import tardis.ldaptools
 import logging
 import re
@@ -52,8 +52,8 @@ def command(args):
             print "Sponsor:", user[-1].get("sponsors", [None])[0]
             print "Last Seen:", lastSeen 
             print ""
-        exit(0)
+        exit(exit_code.SUCCESS)
     else:
         print "No users found"
-        exit(ERR_USER_NOT_FOUND)
+        exit(exit_code.ERR_USER_NOT_FOUND)
 

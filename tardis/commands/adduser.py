@@ -1,4 +1,4 @@
-from tardis.consts.errors import ERR_USERNAME_UNAVAILABLE
+from tardis.consts import exit_code
 import tardis.ldaptools
 import logging
 import smtplib
@@ -24,7 +24,7 @@ def command(args):
     if args.username in [user[-1]["uid"][0] for user in userlist]:
         logging.debug("... it's not!")
         print "Username %s is already in use." % args.username
-        exit(ERR_USERNAME_UNAVAILABLE)
+        exit(exit_code.ERR_USERNAME_UNAVAILABLE)
 
     # Get lowest available UID
     logging.debug("Getting lowest available UID")
