@@ -40,7 +40,7 @@ def command(args):
             if output.endswith("**"):
                 lastSeen = "Never"
             else:
-                lastseen = re.findall("\d{4}$", output)
+                lastseen = re.findall("\d{4}$", output) 
             groups = ldap.getGroupsForUser(user[-1].get("uid", [None])[0])
             print "Username:", user[-1].get("uid", [None])[0]
             print "UserID:", user[-1].get("uidNumber", [None])[0]
