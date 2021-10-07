@@ -1,5 +1,5 @@
 __title__ = 'tardis-scriptkit'
-__version__ = '2.2'
+__version__ = '2.3'
 __author__ = 'Tardis Sysmans'
 __authoremail__ = 'sysmans@tardis.ed.ac.uk'
 __license__ = 'MIT'
