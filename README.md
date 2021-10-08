@@ -55,6 +55,7 @@ A couple of style notes for interactive.py
 To develop, check out a copy, and then
 ```
 $ virtualenv env            # Create a working environment
+$ pip install -r requirements.txt # install requirements file
 $ source env/bin/activate   # Activate it, allowing you to install and test without being root
 $ pip install -e .          # Install in editable mode
 ```
