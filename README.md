@@ -54,10 +54,10 @@ A couple of style notes for interactive.py
 ## Developing, Testing, and Installing
 To develop, check out a copy, and then
 ```
-$ virtualenv env            # Create a working environment
+$ virtualenv env                  # Create a working environment
 $ pip install -r requirements.txt # install requirements file
-$ source env/bin/activate   # Activate it, allowing you to install and test without being root
-$ pip install -e .          # Install in editable mode
+$ source env/bin/activate         # Activate it, allowing you to install and test without being root
+$ pip install -e .                # Install in editable mode
 ```
 
 You'll also need to make sure that you have an LDAP config file that you can read to pass to tardis.ldaptools.LDAP().
