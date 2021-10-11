@@ -16,5 +16,8 @@ setup(
         'console_scripts': [
             'tardis = tardis.interactive:main',
         ]
-    }
+    },
+    install_requires = [
+        "python-ldap==2.4.19"
+    ]
 )
