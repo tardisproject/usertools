@@ -3,6 +3,7 @@ import argparse
 from tardis.commands.adduser import setup as adduser_setup, command as adduser_func
 from tardis.commands.userinfo import setup as userinfo_setup, command as userinfo_func
 from tardis.commands.lastlog import setup as lastlog_setup, command as lastlog_func
+from tardis.commands.resetpw import setup as resetpw_setup, command as resetpw_func
 
 def main():
     parser = argparse.ArgumentParser()
@@ -26,5 +27,14 @@ def main():
     lastlog_setup(lastlog_p)
     lastlog_p.set_defaults(func=lastlog_func)
 
+    # Command: resetpw
+    # Maintainer: Samuel Macleod <penalosa@tardis.ed.ac.uk>
+    resetpw_p = subparsers.add_parser('resetpw', description="Reset a user's password", help="Set a user's password to a random string, and email it to them")
+    resetpw_setup(resetpw_p)
+    resetpw_p.set_defaults(func=resetpw_func)
+
     args = parser.parse_args()
     args.func(args)
+    
+if __name__ == '__main__':
+    main()
