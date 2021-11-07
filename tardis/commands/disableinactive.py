@@ -28,7 +28,10 @@ def command(args):
     
     keysToDisable = []
     for k in logonHistory.keys():
-        if (k == "Never" and args.disable_never) or (k != "**" and int(k) <= args.threshold):
+        if k in ["Never", "**", "???"]:
+            if args.disable_never:
+                keysToDisable.append(k)
+        elif int(k) <= args.threshold:
             keysToDisable.append(k)
     
     allUsers = []
@@ -38,6 +41,10 @@ def command(args):
         for v in logonHistory[k]:
             print("\t\t%s" % str(v))
             allUsers.append(v)
+
+    if len(allUsers) == 0:
+        print "Nothing to do"
+        exit(exit_code.SUCCESS)
 
     print "Enter 'YES' to continue"
     if raw_input() != 'YES':
