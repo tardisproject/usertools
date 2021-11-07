@@ -36,8 +36,10 @@ class LDAP(object):
         self.conn.simple_bind_s(self.binddn, self.bindpw)
     
     # User management
-    def searchUser(self, field, value):
+    def searchUser(self, field, value, includeDisabled=False):
         results = self.conn.search_s("ou=People, %s" %self.base, ldap.SCOPE_SUBTREE, filterstr="%s=%s" % (field, value))
+        if includeDisabled and len(results) == 0:
+            results += self.conn.search_s("ou=DisabledUsers, %s" %self.base, ldap.SCOPE_SUBTREE, filterstr="%s=%s" % (field, value))
         return results
 
     def getUser(self, username):
