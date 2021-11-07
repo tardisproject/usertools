@@ -3,6 +3,8 @@ import ldap
 
 import hashlib
 import base64
+import re
+from subprocess import Popen, PIPE
 
 def ssha1(password, salt):
     """
@@ -59,6 +61,18 @@ class LDAP(object):
         # Pass in the keys and values as a dictionary.
         updates = [(ldap.MOD_REPLACE, key, value) for key, value in details.iteritems()]
         self.conn.modify_s('uid=%s, ou=People, %s' %(username, self.base), updates)
+
+    def getLastSeen(self, username):
+        p1 = Popen(["lastlog", "-u", username], stdout=PIPE)
+        p2 = Popen(["grep", "-v", "Latest"], stdin=p1.stdout, stdout=PIPE)
+        p1.stdout.close()
+        output = p2.communicate()[0].replace("\n", "")
+        lastSeen = ""
+        if output.endswith("**"):
+            return "Never"
+        else:
+            lastSeen = re.findall("\d{4}$", output)
+            return lastSeen[0] if lastSeen else "???"
 
     def deleteUser(self, username):
         self.conn.delete('uid=%s, ou=People, %s' %(username, self.base))

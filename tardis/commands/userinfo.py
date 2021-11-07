@@ -1,8 +1,6 @@
 from tardis.consts import exit_code
 import tardis.ldaptools
 import logging
-import re
-from subprocess import Popen, PIPE
 
 # userinfo - get a users info
 
@@ -32,16 +30,7 @@ def command(args):
     logging.debug("Found %d users" % len(users))
     if users:
         for user in users:
-            p1 = Popen(["lastlog", "-u", args.username], stdout=PIPE)
-            p2 = Popen(["grep", "-v", "Latest"], stdin=p1.stdout, stdout=PIPE)
-            p1.stdout.close()
-            output = p2.communicate()[0].replace("\n", "")
-            lastSeen = ""
-            if output.endswith("**"):
-                lastSeen = "Never"
-            else:
-                lastSeen = re.findall("\d{4}$", output)
-                lastSeen = lastSeen[0] if lastSeen else "???"
+            lastSeen = ldap.getLastSeen(args.username)
             groups = ldap.getGroupsForUser(user[-1].get("uid", [None])[0])
             print "Username:", user[-1].get("uid", [None])[0]
             print "UserID:", user[-1].get("uidNumber", [None])[0]

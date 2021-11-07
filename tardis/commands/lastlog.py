@@ -1,8 +1,6 @@
 from tardis.consts import exit_code
 import tardis.ldaptools
 from collections import defaultdict
-from subprocess import Popen, PIPE
-import re
 
 # lastlog - audit users
 
@@ -21,15 +19,8 @@ def command(args):
         logonHistory = defaultdict(list)
         for user in userlist:
             username = user[-1]["uid"][-1]
-
-            p1 = Popen(["lastlog", "-u", username], stdout=PIPE)
-            p2 = Popen(["grep", "-v", "Latest"], stdin=p1.stdout, stdout=PIPE)
-            p1.stdout.close()
-            output = p2.communicate()[0].replace("\n", "")
-            if output.endswith("**"):
-                logonHistory["never"].append((user[-1]["uid"][-1], user[-1]["uidNumber"][-1]))
-            else:
-                logonHistory[re.findall("\d{4}$", output)[0]].append((user[-1]["uid"][-1], user[-1]["uidNumber"][-1]))
+            lastSeen = ldap.getLastSeen(username)
+            logonHistory[lastSeen].append((user[-1]["uid"][-1], user[-1]["uidNumber"][-1]))
         for k, v in logonHistory.iteritems():
             print "%s: %d" %(k, len(v))
         if args.type == "abandon":
