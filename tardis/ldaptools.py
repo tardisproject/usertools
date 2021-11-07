@@ -62,6 +62,9 @@ class LDAP(object):
         updates = [(ldap.MOD_REPLACE, key, value) for key, value in details.iteritems()]
         self.conn.modify_s('uid=%s, ou=People, %s' %(username, self.base), updates)
 
+    def disableUser(self, username):
+        self.conn.rename_s("uid=%s,ou=People,%s" % (username, self.base), "uid=%s" % username, "ou=DisabledUsers,%s" % self.base)
+
     def getLastSeen(self, username):
         p1 = Popen(["lastlog", "-u", username], stdout=PIPE)
         p2 = Popen(["grep", "-v", "Latest"], stdin=p1.stdout, stdout=PIPE)

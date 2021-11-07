@@ -3,6 +3,7 @@ import argparse
 from tardis.commands.adduser import setup as adduser_setup, command as adduser_func
 from tardis.commands.userinfo import setup as userinfo_setup, command as userinfo_func
 from tardis.commands.lastlog import setup as lastlog_setup, command as lastlog_func
+from tardis.commands.disableinactive import setup as disableinactive_setup, command as disableinactive_func
 
 def main():
     parser = argparse.ArgumentParser()
@@ -25,6 +26,10 @@ def main():
     lastlog_p = subparsers.add_parser('lastlog', description="Read through TARDIS logs", help="Search through tardis logs via their login security or their last login")
     lastlog_setup(lastlog_p)
     lastlog_p.set_defaults(func=lastlog_func)
+
+    disableinactive_p = subparsers.add_parser('disable-inactive', description="Disable users that haven't logged in since a certain year", help="disable users that haven't logged in since a certain year")
+    disableinactive_setup(disableinactive_p)
+    disableinactive_p.set_defaults(func=disableinactive_func)
 
     args = parser.parse_args()
     args.func(args)
